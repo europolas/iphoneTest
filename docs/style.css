@@ -1,19 +1,19 @@
 :root { color-scheme: dark; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #10182b; color: #f4f6fc; }
 * { box-sizing: border-box; }
-body { margin: 0; min-height: 100svh; background: radial-gradient(ellipse at 80% 0%, #203d56 0%, transparent 55%), #10182b; }
+body { margin: 0; min-height: 100svh; background: radial-gradient(ellipse at 80% 0%, #54315e 0%, transparent 55%), #10182b; }
 main { max-width: 520px; margin: auto; padding: max(40px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom)); }
-.badge { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #a8edcc; margin-bottom: 22px; }
+.badge { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #ffd3ad; margin-bottom: 22px; }
 h1 { font-size: clamp(30px, 8vw, 42px); letter-spacing: -1.5px; line-height: 1.12; margin: 0 0 16px; }
 .intro { color: #b4bfd3; line-height: 1.6; margin: 0 0 32px; }
 .card { padding: 30px 24px 18px; border: 1px solid #ffffff20; border-radius: 28px; background: #ffffff08; text-align: center; }
 .label { font-size: 11px; letter-spacing: 2px; color: #b4bfd3; }
 output { display: block; padding: 20px 0 28px; font-size: clamp(60px, 20vw, 96px); font-weight: 700; letter-spacing: -4px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 button { font: inherit; min-height: 52px; border: 0; cursor: pointer; touch-action: manipulation; }
-.primary { width: 100%; background: #b1f2d0; color: #10291e; border-radius: 16px; font-weight: 700; font-size: 17px; }
-.primary:active { transform: scale(.98); background: #91e2b8; }
+.primary { width: 100%; background: #ffd3ad; color: #382013; border-radius: 16px; font-weight: 700; font-size: 17px; }
+.primary:active { transform: scale(.98); background: #f4b780; }
 .reset { padding: 12px 18px; margin-top: 10px; background: none; color: #c9d2e3; }
 button:disabled { opacity: .4; cursor: default; }
-:focus-visible { outline: 3px solid #b1f2d0; outline-offset: 5px; }
+:focus-visible { outline: 3px solid #ffd3ad; outline-offset: 5px; }
 .note { font-size: 13px; color: #b4bfd3; text-align: center; line-height: 1.5; margin: 18px 0 30px; }
 details { border-top: 1px solid #ffffff20; padding-top: 20px; font-size: 14px; line-height: 1.6; color: #b4bfd3; }
 summary { cursor: pointer; color: #f4f6fc; }
