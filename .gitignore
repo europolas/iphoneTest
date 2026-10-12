@@ -1,0 +1,6 @@
+build/
+package/
+*.ipa
+*.xcodeproj/
+.DS_Store
+iPhone-Demo-project.zip
