@@ -1,3 +1,7 @@
+/**
+ * Build only public assets. Refuse unmanaged output, inject the allowed API origin, and hash every asset for worker cache versioning. Backend source and .runtime never enter docs/.
+ * See AGENTS.md and the reusable library docs/ARCHITECTURE.md.
+ */
 import { readFile, writeFile, mkdir, cp, rm, readdir, access } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';

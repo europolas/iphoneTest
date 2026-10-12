@@ -1,3 +1,8 @@
+/**
+ * Opt-in structured logging with secret field and recovery URL redaction.
+ * Disabled by default. Redaction is defensive, not a guarantee for arbitrary free text; do not log credentials or personal payloads.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 const sensitive = /password|token|secret|authorization|cookie|email|reset|session|key/i;
 export function redact(value, depth = 0) {
   if (depth > 5) return '[truncated]';

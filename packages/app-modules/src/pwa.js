@@ -1,3 +1,8 @@
+/**
+ * Register the worker and announce guarded application updates.
+ * Do not force reload dirty forms. canReload must include every unsaved editor; destroy stops polling and listeners.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export async function setupPwa({ url = './sw.js', navigator: nav = globalThis.navigator, window: win = globalThis.window, document: doc = globalThis.document, canReload = () => true, onUpdate = () => {}, onError = () => {} } = {}) {
   if (!nav?.serviceWorker) return { supported: false, destroy() {} };
   let registration;
@@ -6,7 +11,7 @@ export async function setupPwa({ url = './sw.js', navigator: nav = globalThis.na
   const bindings = [];
   const listen = (target, name, fn) => { target.addEventListener(name, fn); bindings.push(() => target.removeEventListener(name, fn)); };
   function apply() {
-    if (!canReload()) throw new Error('Pirmiausia išsaugok pakeitimus.');
+    if (!canReload()) throw new Error("Save your changes first.");
     if (registration?.waiting) registration.waiting.postMessage({ type: 'ACTIVATE_UPDATE' });
     else if (nav.serviceWorker.controller && !reloading) { reloading = true; win.location.reload(); }
   }

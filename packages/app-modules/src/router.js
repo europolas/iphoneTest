@@ -1,3 +1,8 @@
+/**
+ * Hash routes, browser back and optional navigation guard.
+ * Route values are untrusted input. Authorization remains server-side; cleanup removes the hashchange listener.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export function createRouter({ window: win = globalThis.window, routes, beforeNavigate = () => true, onNotFound = () => {} }) {
   let current;
   function render() {

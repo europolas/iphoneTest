@@ -1,9 +1,17 @@
 {
   "name": "@europolas/app-modules",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "description": "Reusable browser and Node modules for mobile PWA applications",
-  "files": ["src", "server", "styles", "README.md", "PROVENANCE.md"],
+  "files": [
+    "src",
+    "server",
+    "styles",
+    "README.md",
+    "PROVENANCE.md",
+    "docs",
+    "AGENTS.md"
+  ],
   "exports": {
     ".": "./src/index.js",
     "./*": "./src/*.js",
@@ -12,7 +20,13 @@
     "./server/migrations": "./server/migrations.mjs",
     "./server/security": "./server/security.mjs"
   },
-  "engines": {"node": ">=22"},
-  "scripts": {"test": "node --test test/*.test.mjs"},
-  "devDependencies": {"fake-indexeddb": "^6.2.5"}
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "fake-indexeddb": "^6.2.5"
+  }
 }

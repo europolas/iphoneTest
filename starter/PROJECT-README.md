@@ -69,3 +69,10 @@ jiems reikia jūsų serverio atitinkamų endpointų ir teisių tikrinimo.
 Atnaujinimai laukia vartotojo veiksmo. Savo formų neišsaugotą būseną įtrauk į
 `canReload`. iPhone ekrano, klaviatūros ir blur pataisos perimtos iš veikiančio demo.
 PWA yra internetinė programėlė; tai nėra pasirašytas iOS IPA projektas.
+
+## Agent handoff and language defaults
+
+Read `AGENTS.md` and `modules/docs/ARCHITECTURE.md` before changing the app.
+English (`en`) is default, Lithuanian (`lt`) is the second option. Saved preferences
+are preserved. Dictionaries live in `modules/src/translations/en.js` and `lt.js`.
+See `modules/docs/LOCALIZATION.md` for labels, messages, dialogs and formatting.

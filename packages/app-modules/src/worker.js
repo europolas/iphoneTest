@@ -1,3 +1,8 @@
+/**
+ * Scoped static cache, offline app shell and push notification handlers.
+ * Import only in a service worker. Cache no API or private data; remove only caches matching this app ID and registration scope.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export function installWorker({ id, version, assets, name, icon = './icon-192.png', image = './icon-512.png', scope: worker = globalThis.self }) {
   if (!/^[a-z][a-z0-9-]{2,23}$/.test(id)) throw new TypeError('Invalid cache namespace');
   const home = worker.registration.scope;
@@ -24,7 +29,7 @@ export function installWorker({ id, version, assets, name, icon = './icon-192.pn
   worker.addEventListener('push', event => {
     let payload = {}; try { payload = event.data?.json() || {}; } catch {}
     const message = payload.message && typeof payload.message === 'object' ? payload.message : payload;
-    event.waitUntil(worker.registration.showNotification(String(message.title || name).slice(0, 200), { body: String(message.body || message.message || 'Gavai naują pranešimą.').slice(0, 1000), icon: new URL(icon, home).href, image: new URL(image, home).href, tag: String(message.id || id).slice(0, 200), data: { url: safeTarget(message.url) } }));
+    event.waitUntil(worker.registration.showNotification(String(message.title || name).slice(0, 200), { body: String(message.body || message.message || "You have a new notification.").slice(0, 1000), icon: new URL(icon, home).href, image: new URL(image, home).href, tag: String(message.id || id).slice(0, 200), data: { url: safeTarget(message.url) } }));
   });
   worker.addEventListener('notificationclick', event => {
     event.notification.close();

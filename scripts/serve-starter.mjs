@@ -1,3 +1,7 @@
+/**
+ * Local development static server bound to loopback. Serve built assets only; reject dotfiles and directory traversal. This is not a production API or HTTPS server.
+ * See AGENTS.md and the reusable library docs/ARCHITECTURE.md.
+ */
 import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';

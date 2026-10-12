@@ -1,3 +1,8 @@
+/**
+ * Server-only password, token, validation and encrypted mail helpers.
+ * Private keys are injected from ignored secret files. Password hashing is scrypt; opaque tokens are hashed before database storage.
+ * See ../docs/BACKEND.md. This file must never enter the browser build.
+ */
 import { randomBytes, scrypt as callbackScrypt, timingSafeEqual, createHash, createHmac, createCipheriv, createDecipheriv } from 'node:crypto';
 import { promisify } from 'node:util';
 
@@ -7,7 +12,7 @@ let running = 0;
 const waiting = [];
 async function limited(task) {
   if (running >= 2) {
-    if (waiting.length >= 16) throw new ApiError(503, 'Serveris užimtas. Bandyk vėliau.');
+    if (waiting.length >= 16) throw new ApiError(503, "The server is busy. Try again later.");
     await new Promise(resolve => waiting.push(resolve));
   } else running++;
   try { return await task(); }
@@ -32,17 +37,17 @@ export async function verifyPassword(password, encoded) {
   return timingSafeEqual(key, Buffer.from(parts[5], 'hex'));
 }
 export function email(value) {
-  if (typeof value !== 'string') throw new ApiError(400, 'Įvesk tinkamą el. pašto adresą.');
+  if (typeof value !== 'string') throw new ApiError(400, "Enter a valid email address.");
   const result = value.trim().toLowerCase();
-  if (result.length > 254 || !/^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\.[a-z]{2,63}$/.test(result)) throw new ApiError(400, 'Įvesk tinkamą el. pašto adresą.');
+  if (result.length > 254 || !/^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\.[a-z]{2,63}$/.test(result)) throw new ApiError(400, "Enter a valid email address.");
   return result;
 }
 export function password(value) {
-  if (typeof value !== 'string' || [...value].length < 15 || [...value].length > 128 || Buffer.byteLength(value) > 512) throw new ApiError(400, 'Slaptažodis turi būti nuo 15 iki 128 simbolių.');
+  if (typeof value !== 'string' || [...value].length < 15 || [...value].length > 128 || Buffer.byteLength(value) > 512) throw new ApiError(400, "The password must contain 15 to 128 characters.");
   return value;
 }
 export function name(value) {
-  if (typeof value !== 'string' || !value.trim() || [...value.trim()].length > 80 || /[\u0000-\u001f\u007f]/.test(value)) throw new ApiError(400, 'Vardas turi būti nuo 1 iki 80 simbolių.');
+  if (typeof value !== 'string' || !value.trim() || [...value.trim()].length > 80 || /[\u0000-\u001f\u007f]/.test(value)) throw new ApiError(400, "The name must contain 1 to 80 characters.");
   return value.trim();
 }
 export function encrypt(value, key) {

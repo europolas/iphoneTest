@@ -29,7 +29,7 @@ test('search supports Lithuanian accents, sorting is numeric and pagination clam
   const items = [{ name: 'Ąžuolas 10' }, { name: 'Ąžuolas 2' }, { name: 'Beržas' }];
   assert.equal(filterItems(items, 'azuolas', ['name']).length, 2); assert.equal(sortItems(items, 'name')[0].name, 'Ąžuolas 2'); assert.equal(items[0].name, 'Ąžuolas 10');
   const page = paginate(items, { page: 10, pageSize: 2 }); assert.equal(page.page, 2); assert.equal(page.items.length, 1); assert.throws(() => paginate(items, { pageSize: 0 }));
-  const i18n = createI18n({ lt: { greeting: 'Labas, {name}!' }, en: { greeting: 'Hello, {name}!' } }); assert.equal(i18n.t('greeting', { name: 'A' }), 'Labas, A!'); i18n.setLanguage('en'); assert.equal(i18n.t('missing'), 'missing');
+  const i18n = createI18n({ lt: { greeting: 'Labas, {name}!' }, en: { greeting: 'Hello, {name}!' } }); assert.equal(i18n.t('greeting', { name: 'A' }), 'Hello, A!'); i18n.setLanguage('en'); assert.equal(i18n.t('missing'), 'missing');
   assert.equal(validate({ email: 'bad', password: 'short' }, { email: [validators.email], password: [validators.password] }).valid, false);
 });
 test('API confines tokens to its HTTPS base, handles 401 and sends FormData without a JSON header', async () => {

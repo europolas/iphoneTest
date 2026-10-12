@@ -1,3 +1,7 @@
+/**
+ * Privileged provisioning CLI only. Validate identifiers, apply schema migrations and grant the application user DML only. Never expose this root-credential command as an HTTP route.
+ * See AGENTS.md and the reusable library docs/ARCHITECTURE.md.
+ */
 import mysql from 'mysql2/promise';
 import { readFileSync } from 'node:fs';
 import { applyMigrations } from '../src/migrations.mjs';

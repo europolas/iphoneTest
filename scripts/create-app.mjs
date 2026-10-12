@@ -1,3 +1,7 @@
+/**
+ * Create an independent app without overwriting existing projects. Copy versioned modules and documentation; generate fresh per-project secrets only for --with-server. This never starts or deploys a server.
+ * See AGENTS.md and the reusable library docs/ARCHITECTURE.md.
+ */
 import { cp, mkdir, writeFile, readFile, access } from 'node:fs/promises';
 import { randomBytes } from 'node:crypto';
 import path from 'node:path';
@@ -40,6 +44,7 @@ export async function createApp({ id, name, output, apiUrl = '', auth = false, w
     await writeFile(path.join(output, '.runtime/api.env'), `APP_NAME=${name}\nAPP_URL=${app.href}\nALLOWED_ORIGINS=${app.origin}\nSMTP_HOST=\nSMTP_PORT=587\nSMTP_USER=\nSMTP_FROM=\nMAIL_DELIVERY_READY=false\n`, { mode: 0o600 });
   }
   await cp(path.join(root, 'starter/PROJECT-README.md'), path.join(output, 'README.md'));
+  await cp(path.join(root, 'starter/PROJECT-AGENTS.md'), path.join(output, 'AGENTS.md'));
   return { output, config, withServer };
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

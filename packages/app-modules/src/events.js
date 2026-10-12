@@ -1,3 +1,8 @@
+/**
+ * Local event bus for loosely coupled modules.
+ * Unsubscribe when a screen unmounts. This is not cross-window messaging or a server event stream.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export function createEvents() {
   const listeners = new Map();
   return {

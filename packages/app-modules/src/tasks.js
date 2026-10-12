@@ -1,3 +1,8 @@
+/**
+ * Single-flight actions, debounce and policy-driven retries.
+ * Retries must be explicitly safe for each operation. Respect AbortSignal; cleanup pending debounced work when leaving a screen.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export function singleFlight(task) {
   let pending;
   return function (...args) { if (!pending) pending = Promise.resolve().then(() => task.apply(this, args)).finally(() => { pending = null; }); return pending; };

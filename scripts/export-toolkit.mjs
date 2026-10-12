@@ -1,3 +1,7 @@
+/**
+ * Assemble independent source repositories and public downloads from explicit source trees. Do not include generated test projects, installed dependencies or runtime secrets.
+ * See AGENTS.md and the reusable library docs/ARCHITECTURE.md.
+ */
 import { cp, mkdir, rm, readFile, writeFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -14,6 +18,7 @@ export async function exportToolkit() {
   await cp(path.join(root, 'starter'), path.join(starter, 'starter'), { recursive: true });
   await cp(path.join(root, 'packages/app-modules'), path.join(starter, 'packages/app-modules'), { recursive: true });
   await cp(path.join(root, 'toolkit-tests'), path.join(starter, 'toolkit-tests'), { recursive: true });
+  for (const name of ['AGENTS.md', 'TOOLKIT.md']) await cp(path.join(root, name), path.join(starter, name));
   await mkdir(path.join(starter, 'scripts'));
   for (const name of ['build-starter.mjs', 'create-app.mjs', 'serve-starter.mjs']) await cp(path.join(root, 'scripts', name), path.join(starter, 'scripts', name));
   const pkg = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));

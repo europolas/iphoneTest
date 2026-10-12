@@ -1,3 +1,5 @@
+# Optional per-project API/DB. Secrets live outside Git in .runtime; ports stay on loopback.
+# migrate/admin are privileged CLI tools, not public services. See library docs/BACKEND.md.
 services:
   db:
     image: mariadb:11.4

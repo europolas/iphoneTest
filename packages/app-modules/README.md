@@ -1,8 +1,17 @@
-# @europolas/app-modules 1.0.0
+# @europolas/app-modules 1.1.0
 
 39 funkcinių modulių failai: 35 naršyklės moduliai, service worker ir 3 serverio moduliai.
 Be frontend framework ir be naršyklės runtime priklausomybių. Node serverio
 runtime atskirai naudoja mysql2 ir nodemailer, jų konkrečios versijos užrakintos.
+
+## Agent handoff and localization
+
+English (`en`) is the default and fallback; Lithuanian (`lt`) is the second option.
+Saved language choices are preserved. Read [AGENTS.md](AGENTS.md),
+[architecture](docs/ARCHITECTURE.md), [module contracts](docs/MODULES.md),
+[localization](docs/LOCALIZATION.md), [iPhone constraints](docs/IPHONE.md),
+[backend](docs/BACKEND.md) and [development](docs/DEVELOPMENT.md).
+Every functional source file includes purpose and integration/cleanup comments.
 
 ## Katalogas
 
@@ -25,7 +34,7 @@ runtime atskirai naudoja mysql2 ir nodemailer, jų konkrečios versijos užrakin
 | settings | `createSettings` — išliekantys nustatymai su validacija |
 | router | `createRouter` — hash navigacija, query, back, navigacijos guard |
 | forms | `bindForm`, `readForm`, `trackDirty` — validacija, busy, dvigubo submit apsauga |
-| validation | `validate`, `validators` — laukelių taisyklės |
+| validation | `validate`, `validators`, `createValidators` — laukelių taisyklės |
 | ui | `element`, `createToast`, `confirmDialog`, `setStatus` — saugus tekstas ir dialogai |
 | theme | `createTheme` — tamsi, šviesi, sistemos tema |
 | i18n | `createI18n` — žodynai, kalbos, parametrų įterpimas |
@@ -71,7 +80,7 @@ Kai `build/app-modules` paskelbiamas atskiros Git repozitorijos šaknyje, galima
 įdiegti jį per Git URL, pririšus prie žymos arba konkretaus commit:
 
 ```bash
-npm install git+ssh://git@github.com/europolas/app-modules.git#v1.0.0
+npm install git+ssh://git@github.com/europolas/app-modules.git#v1.1.0
 ```
 
 Tai būsimos atskiros repozitorijos pavyzdys; dabartinės bibliotekos npm registre

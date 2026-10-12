@@ -138,3 +138,6 @@ Atnaujindamas naudok tą pačią Apple paskyrą ir programėlės identifikatori�
 Projektas paruoštas kompiliuoti GitHub macOS aplinkoje. Šioje Linux darbo
 aplinkoje Xcode nėra, todėl tikrą iOS kompiliavimą turi patikrinti GitHub Actions;
 įdiegimas tikrame iPhone dar nepatikrintas.
+
+Agent handoff: [AGENTS.md](AGENTS.md), [architecture and guides](packages/app-modules/docs/ARCHITECTURE.md).
+Reusable apps default to English and support Lithuanian as the second language.

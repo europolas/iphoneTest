@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="lt" data-lock-selection="true">
+<html lang="en" data-lock-selection="true">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
@@ -8,51 +8,53 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob:; media-src 'self' blob:; connect-src 'self' __API_ORIGIN__; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
-  <title>Programėlės pagrindas</title>
+  <title>App starter</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="style.css">
   <script type="module" src="app.js"></script>
 </head>
 <body>
+  <!-- main owns scrolling; preserve the safe-area/blur shell described in the library IPHONE guide. -->
   <main>
     <div class="badge">APP STARTER · 1.0.0</div>
-    <h1 id="app-name">Programėlės pagrindas</h1>
-    <p class="intro" data-i18n="intro">Tavo naujos programėlės pradžia.</p>
-    <nav class="app-nav" aria-label="Pagrindiniai ekranai">
-      <a href="#/" data-route="/" data-i18n="home">Pradžia</a>
-      <a href="#/settings" data-route="/settings" data-i18n="settings">Nustatymai</a>
-      <a href="#/modules" data-route="/modules" data-i18n="modules">Moduliai</a>
-      <a href="#/account" data-route="/account" id="account-link" hidden data-i18n="account">Paskyra</a>
+    <h1 id="app-name">App starter</h1>
+    <p class="intro" data-i18n="intro">Your next app starts here.</p>
+    <nav class="app-nav" aria-label="Main screens" data-i18n-aria-label="navLabel">
+      <a href="#/" data-route="/" data-i18n="home">Home</a>
+      <a href="#/settings" data-route="/settings" data-i18n="settings">Settings</a>
+      <a href="#/modules" data-route="/modules" data-i18n="modules">Modules</a>
+      <a href="#/account" data-route="/account" id="account-link" hidden data-i18n="account">Account</a>
     </nav>
     <p id="network-status" role="status"></p>
     <section data-screen="/" class="account-card">
-      <h2 data-i18n="welcome">Sveiki!</h2>
-      <p data-i18n="welcomeText">Čia bus tavo programėlės turinys.</p>
-      <p class="form-help" data-i18n="install">Safari bendrinimo meniu pasirink „Pridėti prie pradžios ekrano“.</p>
+      <h2 data-i18n="welcome">Welcome!</h2>
+      <p data-i18n="welcomeText">Your app content goes here.</p>
+      <p class="form-help" data-i18n="install">In Safari, choose Share → Add to Home Screen.</p>
       <div class="app-toolbar">
-        <button id="share-app" type="button" data-i18n="share">Bendrinti</button>
-        <button id="copy-link" type="button" data-i18n="copy">Kopijuoti nuorodą</button>
+        <button id="share-app" type="button" data-i18n="share">Share</button>
+        <button id="copy-link" type="button" data-i18n="copy">Copy link</button>
       </div>
     </section>
     <section data-screen="/settings" class="account-card" hidden>
-      <h2 data-i18n="settings">Nustatymai</h2>
+      <h2 data-i18n="settings">Settings</h2>
+      <!-- Translate text nodes, not containers that own form controls. -->
       <form id="settings-form">
-        <label><span data-i18n="theme">Tema</span><select name="theme"><option value="dark">Tamsi / Dark</option><option value="light">Šviesi / Light</option><option value="system">Sistemos / System</option></select></label>
-        <label><span data-i18n="language">Kalba</span><select name="language"><option value="lt">Lietuvių</option><option value="en">English</option></select></label>
-        <button type="submit" class="primary" data-i18n="save">Išsaugoti</button>
+        <label><span data-i18n="theme">Theme</span><select name="theme"><option value="dark" data-i18n="dark">Dark</option><option value="light" data-i18n="light">Light</option><option value="system" data-i18n="system">System</option></select></label>
+        <label><span data-i18n="language">Language</span><select name="language"><option value="en">English</option><option value="lt">Lietuvių</option></select></label>
+        <button type="submit" class="primary" data-i18n="save">Save</button>
       </form>
       <p id="app-version" class="note"></p>
     </section>
     <section data-screen="/modules" class="account-card" hidden>
-      <h2 data-i18n="modules">Moduliai</h2>
-      <p data-i18n="moduleText">Pasirink ir prijunk savo projektui reikalingas funkcijas.</p>
+      <h2 data-i18n="modules">Modules</h2>
+      <p data-i18n="moduleText">Choose the features your project needs.</p>
       <ul id="module-list"></ul>
     </section>
     <section data-screen="/account" id="account-screen" hidden></section>
     <section id="update-card" class="account-card" hidden>
-      <p data-i18n="update">Yra nauja versija. Prieš atnaujindamas išsaugok pakeitimus.</p>
-      <button id="update-button" class="primary" type="button" data-i18n="updateButton">Atnaujinti</button>
+      <p data-i18n="update">An update is available. Save your changes before updating.</p>
+      <button id="update-button" class="primary" type="button" data-i18n="updateButton">Update</button>
     </section>
     <footer id="footer-name"></footer>
   </main>

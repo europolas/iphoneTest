@@ -1,3 +1,8 @@
+/**
+ * Public browser package entry point.
+ * Export browser modules only; worker and backend modules are imported through their separate entry points.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export * from './api.js';
 export * from './auth-screen.js';
 export * from './auth.js';

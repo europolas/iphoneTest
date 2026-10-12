@@ -1,3 +1,8 @@
+/**
+ * Optional zoom and text selection restrictions.
+ * Inputs remain editable through CSS. The cleanup restores viewport metadata and removes gesture listeners.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export function setupGestures({ document: doc = globalThis.document, lockZoom = true, lockSelection = true } = {}) {
   doc.documentElement.dataset.lockSelection = String(lockSelection);
   doc.documentElement.dataset.lockZoom = String(lockZoom);

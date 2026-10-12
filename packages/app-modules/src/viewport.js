@@ -1,3 +1,8 @@
+/**
+ * iPhone standalone viewport and keyboard sizing ported from the working demo.
+ * Preserve full screen height outside text editing; use visualViewport during keyboard display. Call the returned cleanup on unmount.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 // Derived from the working example-v1 iPhone fix; no hard-coded device sizes.
 export function setupViewport({ window: win = globalThis.window, document: doc = globalThis.document, navigator: nav = globalThis.navigator } = {}) {
   const installed = nav.standalone === true || win.matchMedia('(display-mode: standalone)').matches;

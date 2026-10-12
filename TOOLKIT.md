@@ -64,3 +64,11 @@ yra `/downloads/`. GitHub Actions tikrina Node modulius ir naršyklę, o esamas
 API workflow toliau tikrina originalo paskyrų API su MariaDB.
 Sugeneruotas serveris taip pat patikrintas atskiroje testinėje MariaDB instaliacijoje.
 Darbalaukio Chromium testai nepakeičia tikro iPhone leidimų, kamerų ir Web Push bandymo.
+
+## Kalbos ir dokumentacija agentams
+
+Nauji projektai naudoja anglų kalbą pagal nutylėjimą, lietuvių kalbą kaip antrą
+pasirinkimą. Išsaugotas vartotojo pasirinkimas nekeičiamas. Vertimų ir modulio
+sutarčių taisyklės yra [AGENTS.md](AGENTS.md) ir
+[bibliotekos dokumentacijoje](packages/app-modules/docs/ARCHITECTURE.md).
+Generatorius ir eksportai kartu perkelia komentarus, agento instrukcijas ir vadovus.

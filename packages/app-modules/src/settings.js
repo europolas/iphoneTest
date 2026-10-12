@@ -1,3 +1,8 @@
+/**
+ * Validated persistent preferences backed by storage and observable state.
+ * Default values apply only when no valid saved preference exists. Language selection must not be overwritten by browser locale.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 import { createStore } from './store.js';
 export function createSettings(storage, defaults, validators = {}) {
   function clean(value) { const result = { ...defaults }; for (const key of Object.keys(defaults)) if (Object.hasOwn(value, key) && (!validators[key] || validators[key](value[key]))) result[key] = value[key]; return result; }

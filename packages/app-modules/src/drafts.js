@@ -1,3 +1,8 @@
+/**
+ * Local form drafts and restore bindings.
+ * Exclude password, file and hidden fields. Direct save accepts trusted app data only; remove private drafts after sign-out.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export function createDrafts(storage) {
   return {
     save: (id, value) => storage.set('draft:' + id, { value, updatedAt: new Date().toISOString() }),

@@ -13,6 +13,9 @@ test('generator creates isolated projects, secret files and self-contained deplo
     assert.notEqual(await readFile(path.join(first, '.runtime/db_app'), 'utf8'), await readFile(path.join(second, '.runtime/db_app'), 'utf8'));
     assert.equal((await stat(path.join(first, '.runtime/db_app'))).mode & 0o777, 0o600);
     assert.equal((await stat(path.join(first, '.runtime'))).mode & 0o777, 0o700);
+    assert.equal(JSON.parse(await readFile(path.join(first, 'src/app.config.json'), 'utf8')).language, 'en');
+    assert.ok((await readFile(path.join(first, 'AGENTS.md'), 'utf8')).includes('English is the default'));
+    assert.ok((await readFile(path.join(first, 'modules/docs/LOCALIZATION.md'), 'utf8')).includes('English (`en`)'));
     const sw = await readFile(path.join(first, 'docs/sw.js'), 'utf8'); assert.ok(sw.includes('first-app')); assert.ok(sw.includes('modules/viewport.js')); assert.ok(sw.includes('modules/auth-screen.js')); assert.ok(!sw.includes('.runtime'));
     const server = await readFile(path.join(first, 'server/src/server.mjs'), 'utf8'); assert.ok(!server.includes('perimove.com')); assert.ok(server.includes('process.env.DB_NAME'));
     assert.ok((await readFile(path.join(first, 'scripts/build.mjs'), 'utf8')).includes('../modules/src/config.js'));

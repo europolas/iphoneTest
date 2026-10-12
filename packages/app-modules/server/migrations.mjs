@@ -1,3 +1,8 @@
+/**
+ * Checksum-verified database migrations with a connection-scoped lock.
+ * Use a fresh ID for new SQL. DDL is not transactionally reversible; backup and recovery remain deployment responsibilities.
+ * See ../docs/BACKEND.md. This file must never enter the browser build.
+ */
 import { createHash } from 'node:crypto';
 export async function applyMigrations(connection, migrations, { database } = {}) {
   if (!/^[a-z][a-z0-9_]{2,31}$/.test(database)) throw new TypeError('Invalid database name');

@@ -1,3 +1,8 @@
+/**
+ * Calculate a bounded page and slice a local collection.
+ * Pages outside the range are clamped. For remote collections implement pagination limits in your API too.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export function paginate(items, { page = 1, pageSize = 20 } = {}) {
   if (!Number.isInteger(pageSize) || pageSize < 1 || !Number.isInteger(page)) throw new TypeError('Invalid pagination');
   const pages = Math.max(1, Math.ceil(items.length / pageSize));

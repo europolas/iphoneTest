@@ -1,3 +1,8 @@
+/**
+ * Form validation, dirty tracking and prevention of duplicate submissions.
+ * Return the async operation from your handler. Reset dirty state only after successful persistence; native input constraints still apply.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export function readForm(form) { const result = {}; for (const [key, value] of new FormData(form)) { if (Object.hasOwn(result, key)) result[key] = [].concat(result[key], value); else Object.defineProperty(result, key, { value, enumerable: true, writable: true, configurable: true }); } return result; }
 export function bindForm(form, task, { onError = () => {}, onBusy = () => {} } = {}) {
   let busy = false;

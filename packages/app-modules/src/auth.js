@@ -1,3 +1,8 @@
+/**
+ * Account API adapter and observable session state.
+ * Only opaque token and expiry enter sessionStorage. Generation checks prevent old requests restoring a signed-out session.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 import { createApi } from './api.js';
 import { createStore } from './store.js';
 export function createAuth({ id, baseUrl, storage, fetch }) {

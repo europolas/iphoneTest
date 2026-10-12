@@ -1,9 +1,12 @@
 {
   "id": "starter-demo",
-  "name": "Programėlės pagrindas",
+  "name": "App starter",
   "version": "1.0.0",
   "apiUrl": "",
-  "language": "lt",
+  "language": "en",
   "theme": "dark",
-  "features": {"auth": false, "notifications": false}
+  "features": {
+    "auth": false,
+    "notifications": false
+  }
 }

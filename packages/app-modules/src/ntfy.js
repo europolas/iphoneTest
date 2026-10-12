@@ -1,3 +1,8 @@
+/**
+ * Public test notification scheduling adapter.
+ * Use only non-sensitive test messages. Production push needs your authenticated server; scheduled deliveries depend on the provider.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 import { createApi } from './api.js';
 export function createNtfy({ id, service = 'https://ntfy.sh', fetch }) {
   if (!/^[a-z][a-z0-9-]{2,23}$/.test(id)) throw new TypeError('Invalid app id');

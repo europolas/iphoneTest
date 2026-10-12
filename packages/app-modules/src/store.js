@@ -1,3 +1,8 @@
+/**
+ * Small observable in-memory state container.
+ * Subscriptions return cleanup functions. State is not persistent; use settings or database for explicit persistence.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export function createStore(initial) {
   let state = initial;
   const listeners = new Set();

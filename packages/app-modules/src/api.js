@@ -1,3 +1,8 @@
+/**
+ * HTTPS API client with bearer sessions, JSON/FormData bodies, timeout and cancellation.
+ * Requests must stay inside baseUrl; never retry writes implicitly. A 401 clears the session before parsing the response.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export class HttpError extends Error {
   constructor(status, message, data) { super(message); this.name = 'HttpError'; this.status = status; this.data = data; }
 }

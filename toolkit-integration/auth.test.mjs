@@ -40,7 +40,7 @@ test('authentication security against a real MariaDB database', async t => {
     });
     await t.test('duplicate registration is generic and cannot replace a password', async () => {
       const response = await api.register({ email: 'alice@example.com', name: 'Replacement', password: nextPassword }, 'duplicate');
-      assert.ok(response.message.includes('užklausa apdorota'));
+      assert.ok(response.message.includes('registration request has been processed'));
       await assert.rejects(api.login({ email: 'alice@example.com', password: nextPassword }, 'wrong-login'), e => e.status === 401);
       alice = await api.login({ email: 'alice@example.com', password: firstPassword }, 'login-a');
       bob = await api.login({ email: 'bob@example.com', password: firstPassword }, 'login-b');
@@ -51,7 +51,7 @@ test('authentication security against a real MariaDB database', async t => {
     });
     await t.test('invalid credentials and nonexistent accounts have the same error', async () => {
       for (const email of ['alice@example.com', 'missing@example.com']) {
-        await assert.rejects(api.login({ email, password: 'wrong' }, 'wrong-' + email), e => e.status === 401 && e.message === 'Neteisingi prisijungimo duomenys.');
+        await assert.rejects(api.login({ email, password: 'wrong' }, 'wrong-' + email), e => e.status === 401 && e.message === 'Incorrect sign-in credentials.');
       }
     });
     await t.test('ordinary users cannot manage other users; profile is always their own', async () => {

@@ -1,3 +1,8 @@
+/**
+ * Versioned JSON storage with an app namespace and memory fallback.
+ * The fallback lasts only in this tab. Same-origin apps share a security boundary; this is not a credential vault.
+ * Integration contracts: ../docs/MODULES.md and ../docs/ARCHITECTURE.md.
+ */
 export function createStorage(namespace, { backend, version = 1, onError = () => {} } = {}) {
   if (!/^[a-z][a-z0-9-]{2,23}$/.test(namespace)) throw new TypeError('Invalid storage namespace');
   if (!Number.isInteger(version) || version < 1) throw new TypeError('Invalid storage version');

@@ -18,7 +18,7 @@ test('PWA updates cannot reload a dirty form, then activate after saving', async
   const serviceWorker = target({ controller: {}, register: async () => registration });
   const win = target({ location: { reload: () => reloads++ }, setInterval: () => 1, clearInterval() {} }); const doc = target({ visibilityState: 'visible' }); let announced;
   const pwa = await setupPwa({ navigator: { serviceWorker, onLine: true }, window: win, document: doc, canReload: () => !dirty, onUpdate: value => { announced = value; } });
-  assert.throws(() => announced.apply(), /išsaugok/); assert.equal(message, undefined); assert.equal(updates, 1);
+  assert.throws(() => announced.apply(), /Save your changes/); assert.equal(message, undefined); assert.equal(updates, 1);
   dirty = false; announced.apply(); assert.deepEqual(message, { type: 'ACTIVATE_UPDATE' }); serviceWorker.handlers.get('controllerchange')(); assert.equal(reloads, 1);
   pwa.destroy(); assert.equal(win.handlers.size, 0); assert.equal(serviceWorker.handlers.size, 0);
 });

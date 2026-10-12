@@ -1,3 +1,7 @@
+/**
+ * Explicit deployment CLI to grant an existing account admin access. Public registration must never assign roles.
+ * See AGENTS.md and the reusable library docs/ARCHITECTURE.md.
+ */
 import mysql from 'mysql2/promise';
 import { readFileSync } from 'node:fs';
 import { email } from '../src/security.mjs';

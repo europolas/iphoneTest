@@ -1,3 +1,7 @@
+/**
+ * Node HTTP runtime around AuthApi: strict CORS, JSON/body limits, health, encrypted mail queue and cleanup. Read secrets from files. Recovery stays unavailable until SMTP delivery is explicitly verified.
+ * See AGENTS.md and the reusable library docs/ARCHITECTURE.md.
+ */
 import http from 'node:http';
 import { readFileSync } from 'node:fs';
 import mysql from 'mysql2/promise';
@@ -46,8 +50,8 @@ async function flushMail() {
     try {
       await transport.sendMail({
         from: process.env.SMTP_FROM, to: mail.to,
-        subject: `${process.env.APP_NAME || 'Programėlė'} – slaptažodžio atkūrimas`,
-        text: `Slaptažodžiui pakeisti atidaryk šią nuorodą:\n${mail.link}\n\nNuoroda galioja 30 minučių ir gali būti panaudota vieną kartą. Jei atkūrimo neprašei, šį laišką ignoruok.`,
+        subject: `${process.env.APP_NAME || 'App'} – password recovery`,
+        text: `To change your password, open this link:\n${mail.link}\n\nThe link expires after 30 minutes and can be used once. If you did not request a reset, ignore this email.`,
         disableFileAccess: true, disableUrlAccess: true
       });
       await pool.execute("UPDATE email_outbox SET sent_at = UTC_TIMESTAMP(3), encrypted_payload = '' WHERE id = ?", [job.id]);
@@ -74,7 +78,7 @@ function body(req) {
     const chunks = [];
     req.on('data', chunk => {
       size += chunk.length;
-      if (size > 16384) { reject(new ApiError(413, 'Užklausa per didelė.')); return; }
+      if (size > 16384) { reject(new ApiError(413, "The request is too large.")); return; }
       chunks.push(chunk);
     });
     req.on('end', () => {
@@ -82,7 +86,7 @@ function body(req) {
         const data = JSON.parse(Buffer.concat(chunks).toString('utf8'));
         if (!data || typeof data !== 'object' || Array.isArray(data)) throw Error();
         resolve(data);
-      } catch { reject(new ApiError(400, 'Netinkami užklausos duomenys.')); }
+      } catch { reject(new ApiError(400, "Invalid request data.")); }
     });
     req.on('error', reject);
   });
@@ -96,26 +100,26 @@ export const server = http.createServer({ requestTimeout: 20000, headersTimeout:
   const respond = (status, data) => { res.writeHead(status); res.end(JSON.stringify(data)); };
   try {
     const origin = req.headers.origin;
-    if (origin && !origins.has(origin)) throw new ApiError(403, 'Šis programėlės adresas neleidžiamas.');
+    if (origin && !origins.has(origin)) throw new ApiError(403, "This app origin is not allowed.");
     if (origin) res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
     const path = new URL(req.url, 'http://localhost').pathname;
     if (path === '/health' && req.method === 'GET') { await pool.query('SELECT 1'); respond(200, { ok: true, passwordRecoveryAvailable: config.mailConfigured }); return; }
-    if (!path.startsWith('/v1/')) throw new ApiError(404, 'Užklausa nerasta.');
+    if (!path.startsWith('/v1/')) throw new ApiError(404, "Request not found.");
     let payload = {};
     if (req.method === 'POST' || req.method === 'PATCH' || req.method === 'DELETE') {
-      if (!/^application\/json(?:;|$)/i.test(req.headers['content-type'] || '')) throw new ApiError(415, 'Reikalingas JSON užklausos formatas.');
+      if (!/^application\/json(?:;|$)/i.test(req.headers['content-type'] || '')) throw new ApiError(415, "A JSON request body is required.");
       payload = await body(req);
     }
-    // Konteinerio portas pasiekiamas tik loopback. Šį header perrašo vietinis nginx.
+    // Loopback-only container port; trusted local nginx must overwrite this header.
     const ip = process.env.TRUST_PROXY === 'true' ? req.headers['x-real-ip'] || req.socket.remoteAddress : req.socket.remoteAddress;
     const [status, data] = await api.dispatch(req.method, path.slice(3), payload, req.headers.authorization, ip);
     respond(status, data);
   } catch (error) {
     if (error instanceof ApiError) { if (error.status === 429) res.setHeader('Retry-After', '60'); respond(error.status, { error: error.message }); }
-    else { console.error('API request failed', { code: typeof error.code === 'string' ? error.code : 'internal' }); respond(500, { error: 'Serverio klaida. Bandyk vėliau.' }); }
+    else { console.error('API request failed', { code: typeof error.code === 'string' ? error.code : 'internal' }); respond(500, { error: "Server error. Try again later." }); }
   }
 });
 server.listen(Number(process.env.PORT || 3000), '0.0.0.0', () => console.log('Application authentication API ready'));
