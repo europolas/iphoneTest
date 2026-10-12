@@ -2,7 +2,7 @@
 
 // Publikavimo metu pakeičiama pagal visų programėlės failų turinį.
 const cacheName = 'iphoneTest-__BUILD_VERSION__';
-const assets = ['./', './index.html', './style.css', './app.js', './reminders.js', './auth.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const assets = ['./', './index.html', './style.css', './viewport.js', './app.js', './reminders.js', './auth.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(cacheName)

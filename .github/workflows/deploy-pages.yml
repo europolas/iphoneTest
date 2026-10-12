@@ -9,6 +9,7 @@ on:
       - 'tests/pwa-update.test.cjs'
       - 'tests/reminders.test.cjs'
       - 'tests/auth.test.cjs'
+      - 'tests/viewport.test.cjs'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 

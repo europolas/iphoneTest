@@ -122,7 +122,7 @@ test('download all fresh files before immediate activation, then remove old cach
   const w = worker();
   await w.lifecycle('install');
   assert.equal(w.state.skipped, 1);
-  assert.equal(w.state.requests.length, 9);
+  assert.equal(w.state.requests.length, 10);
   assert.ok(w.state.requests.every(request => request.cache === 'reload'));
   await w.lifecycle('activate');
   assert.deepEqual(w.state.deleted, ['iphoneTest-v1']);
