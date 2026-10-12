@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths:
+      - 'DemoApp/**'
+      - 'project.yml'
+      - '.github/workflows/build-ios.yml'
 
 permissions:
   contents: read

@@ -46,7 +46,32 @@ reset.addEventListener('click', () => {
 render();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {
+  let hasController = Boolean(navigator.serviceWorker.controller);
+  let refreshing = false;
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (hasController && !refreshing) {
+      refreshing = true;
+      window.location.reload();
+    }
+    hasController = true;
+  });
+
+  navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then(registration => {
+    const checkForUpdate = () => {
+      if (document.visibilityState === 'visible' && navigator.onLine !== false) {
+        registration.update().catch(() => {
+          // Nepasiekiant tinklo lieka ankstesnė veikianti versija.
+        });
+      }
+    };
+
+    checkForUpdate();
+    document.addEventListener('visibilitychange', checkForUpdate);
+    window.addEventListener('online', checkForUpdate);
+    window.addEventListener('pageshow', checkForUpdate);
+    window.setInterval(checkForUpdate, 60_000);
+  }).catch(() => {
     // Skaitiklis lieka veikiantis, jei naršyklė neleidžia veikimo be interneto.
   });
 }

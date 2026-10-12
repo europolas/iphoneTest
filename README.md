@@ -11,8 +11,8 @@ naršyklėje ir, po pirmojo sėkmingo užkrovimo, palaiko veikimą be interneto.
 Tai PWA, o ne sukompiliuota iOS programėlė.
 
 Norėdamas ją publikuoti per GitHub Pages, repozitorijoje atidaryk
-**Settings → Pages → Build and deployment → Deploy from a branch**.
-Pasirink **main** ir **/docs**, tada **Save**.
+**Settings → Pages → Build and deployment → Source → GitHub Actions**.
+Po to **Actions → Deploy web app → Run workflow** paleisk pirmą publikavimą.
 Adresas po sėkmingo publikavimo: https://europolas.github.io/iphoneTest/
 
 GitHub Free plane Pages nemokamai palaikoma viešoms repozitorijoms. Jei ši
@@ -22,6 +22,19 @@ arba rinktis kitą talpinimą. Šiame projekte nėra prisijungimo duomenų.
 Telefone atidaryk publikuotą adresą per Safari ir pasirink
 **Bendrinti → Pridėti prie pradžios ekrano**. Įdiegtai internetinei versijai
 nereikia Apple Developer narystės, kompiuterio ar kas 7 dienas atnaujinamo parašo.
+
+### Automatiniai atnaujinimai
+
+Įkėlus internetinės programėlės pakeitimus į `main`, `Deploy web app` juos
+patikrina ir publikuoja. Kiekvienas pasikeitęs failų rinkinys gauna naują
+talpyklos versiją. Telefone programėlė tikrina atnaujinimus ją atidarius,
+grįžus į ją, atkūrus internetą ir kas minutę, kol ji matoma.
+Sėkmingai atsisiuntusi visus naujos versijos failus, ji automatiškai persikrauna.
+Išsaugotas skaičius lieka. Be interneto toliau veikia ankstesnė versija.
+Uždaryta programėlė iOS fone nuolat netikrina atnaujinimų; patikrins ją atidarius.
+
+Šis mechanizmas taikomas internetinei versijai. Tikros iOS `.ipa` programėlės
+pasirašymas ir diegimas telefonu lieka atskiras procesas.
 
 ## 1. Įkelk projektą į GitHub
 

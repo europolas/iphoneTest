@@ -1,0 +1,43 @@
+name: Deploy web app
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'scripts/prepare-pages.py'
+      - 'tests/pwa-update.test.cjs'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test automatic updates
+        run: node --test tests/pwa-update.test.cjs
+      - name: Prepare versioned web app
+        run: python3 scripts/prepare-pages.py
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload web app
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/pages
+      - name: Deploy web app
+        id: deployment
+        uses: actions/deploy-pages@v4
