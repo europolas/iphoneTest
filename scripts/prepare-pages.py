@@ -1,6 +1,7 @@
 """Prepare static Pages files with a content-based offline cache version."""
 import hashlib
 import shutil
+import subprocess
 from pathlib import Path
 
 source = Path(__file__).resolve().parent.parent / "docs"
@@ -23,3 +24,7 @@ if text.count("__BUILD_VERSION__") != 1:
     raise SystemExit("Expected exactly one service worker version placeholder")
 worker.write_text(text.replace("__BUILD_VERSION__", version))
 print(f"Prepared GitHub Pages version {version[:12]}")
+root = source.parent
+subprocess.run(["node", str(root / "scripts/build-starter.mjs"), "--output", str(destination / "starter")], check=True)
+subprocess.run(["node", str(root / "scripts/export-toolkit.mjs")], check=True)
+shutil.copytree(root / "build/downloads", destination / "downloads", dirs_exist_ok=True)

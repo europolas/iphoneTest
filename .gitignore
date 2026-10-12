@@ -6,3 +6,8 @@ package/
 iPhone-Demo-project.zip
 .runtime/
 server/node_modules/
+node_modules/
+starter/.runtime/
+test-results/
+playwright-report/
+*.tgz

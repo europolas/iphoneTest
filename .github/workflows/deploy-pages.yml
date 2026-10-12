@@ -5,6 +5,15 @@ on:
     branches: [main]
     paths:
       - 'docs/**'
+      - 'starter/**'
+      - 'packages/**'
+      - 'toolkit-tests/**'
+      - 'scripts/build-starter.mjs'
+      - 'scripts/create-app.mjs'
+      - 'scripts/export-toolkit.mjs'
+      - 'scripts/serve-starter.mjs'
+      - 'package.json'
+      - 'package-lock.json'
       - 'scripts/prepare-pages.py'
       - 'tests/pwa-update.test.cjs'
       - 'tests/reminders.test.cjs'
@@ -31,8 +40,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
       - name: Test automatic updates
-        run: node --test tests/*.test.cjs
+        run: npm test
       - name: Prepare versioned web app
         run: python3 scripts/prepare-pages.py
       - name: Configure Pages

@@ -1,0 +1,9 @@
+{
+  "id": "starter-demo",
+  "name": "Programėlės pagrindas",
+  "version": "1.0.0",
+  "apiUrl": "",
+  "language": "lt",
+  "theme": "dark",
+  "features": {"auth": false, "notifications": false}
+}

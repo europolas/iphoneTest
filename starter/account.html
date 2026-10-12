@@ -1,0 +1,67 @@
+    <section class="account-card" aria-labelledby="account-title">
+      <h2 id="account-title">Tavo paskyra</h2>
+      <p id="auth-status" role="status">Tikrinamas ryšys su serveriu…</p>
+      <div id="auth-guest">
+        <div class="auth-tabs" aria-label="Paskyros veiksmai">
+          <button type="button" data-auth-mode="login" aria-pressed="true">Prisijungti</button>
+          <button type="button" data-auth-mode="register" aria-pressed="false">Registruotis</button>
+        </div>
+        <form id="login-form">
+          <label>El. paštas<input name="email" type="email" autocomplete="username" maxlength="254" required></label>
+          <label>Slaptažodis<input name="password" type="password" autocomplete="current-password" maxlength="128" required></label>
+          <button class="primary" type="submit">Prisijungti</button>
+          <button class="text-button" type="button" data-auth-mode="forgot">Pamiršau slaptažodį</button>
+        </form>
+        <form id="register-form" hidden>
+          <label>Vardas<input name="name" autocomplete="name" maxlength="80" required></label>
+          <label>El. paštas<input name="email" type="email" autocomplete="username" maxlength="254" required></label>
+          <label>Slaptažodis<input name="password" type="password" autocomplete="new-password" minlength="15" maxlength="128" required></label>
+          <label>Pakartok slaptažodį<input name="confirmation" type="password" autocomplete="new-password" minlength="15" maxlength="128" required></label>
+          <p class="form-help">Bent 15 simbolių. Tinka ilga, lengvai įsimenama frazė.</p>
+          <button class="primary" type="submit">Sukurti paskyrą</button>
+        </form>
+        <form id="forgot-form" hidden>
+          <p>Atkūrimo nuorodą atsiųsime į paskyros el. paštą.</p>
+          <label>El. paštas<input name="email" type="email" autocomplete="username" maxlength="254" required></label>
+          <button class="primary" type="submit">Siųsti atkūrimo nuorodą</button>
+          <button class="text-button" type="button" data-auth-mode="login">Grįžti į prisijungimą</button>
+        </form>
+        <form id="reset-form" hidden>
+          <p>Įvesk naują slaptažodį. Nuoroda galioja 30 minučių.</p>
+          <label>Naujas slaptažodis<input name="password" type="password" autocomplete="new-password" minlength="15" maxlength="128" required></label>
+          <label>Pakartok slaptažodį<input name="confirmation" type="password" autocomplete="new-password" minlength="15" maxlength="128" required></label>
+          <button class="primary" type="submit">Pakeisti slaptažodį</button>
+        </form>
+      </div>
+      <div id="auth-profile" hidden>
+        <p id="profile-email"></p>
+        <form id="profile-form">
+          <label>Vardas<input name="name" autocomplete="name" maxlength="80" required></label>
+          <button class="primary" type="submit">Išsaugoti vardą</button>
+        </form>
+        <details class="password-details">
+          <summary>Pakeisti slaptažodį</summary>
+          <form id="password-form">
+            <label>Dabartinis slaptažodis<input name="currentPassword" type="password" autocomplete="current-password" maxlength="128" required></label>
+            <label>Naujas slaptažodis<input name="password" type="password" autocomplete="new-password" minlength="15" maxlength="128" required></label>
+            <label>Pakartok slaptažodį<input name="confirmation" type="password" autocomplete="new-password" minlength="15" maxlength="128" required></label>
+            <button class="primary" type="submit">Pakeisti slaptažodį</button>
+          </form>
+        </details>
+        <details class="password-details">
+          <summary>Ištrinti paskyrą</summary>
+          <form id="delete-account-form">
+            <p>Paskyra ir jos prisijungimo duomenys bus ištrinti. Šio veiksmo atšaukti negalima.</p>
+            <label>Dabartinis slaptažodis<input name="currentPassword" type="password" autocomplete="current-password" maxlength="128" required></label>
+            <label class="delete-confirm"><input name="confirmDelete" type="checkbox" value="DELETE" required>Patvirtinu paskyros ištrynimą</label>
+            <button type="submit" class="text-button">Ištrinti paskyrą</button>
+          </form>
+        </details>
+        <div id="admin-panel" hidden>
+          <h3>Vartotojų valdymas</h3>
+          <button id="load-users" type="button" class="text-button">Rodyti vartotojus</button>
+          <ul id="admin-users"></ul>
+        </div>
+        <button id="logout-button" class="text-button" type="button">Atsijungti</button>
+      </div>
+    </section>

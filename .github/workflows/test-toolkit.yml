@@ -1,0 +1,46 @@
+name: Test reusable modules
+on:
+  push:
+    branches: [main]
+    paths: ['packages/**', 'starter/**', 'scripts/**', 'toolkit-tests/**', 'toolkit-integration/**', 'browser-tests/**', 'package*.json', 'playwright.config.mjs', '.github/workflows/test-toolkit.yml']
+  pull_request:
+    paths: ['packages/**', 'starter/**', 'scripts/**', 'toolkit-tests/**', 'toolkit-integration/**', 'browser-tests/**', 'package*.json', 'playwright.config.mjs', '.github/workflows/test-toolkit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  toolkit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      db:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: integration-only-password
+          MARIADB_ROOT_HOST: '%'
+        ports: ['3306:3306']
+        options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=5s --health-timeout=5s --health-retries=30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Test module authentication against MariaDB
+        env:
+          DB_TEST_HOST: 127.0.0.1
+          DB_ROOT_PASSWORD_FILE: ${{ runner.temp }}/toolkit-db-root
+        run: |
+          umask 077
+          printf '%s' 'integration-only-password' > "$DB_ROOT_PASSWORD_FILE"
+          node --test toolkit-integration/*.test.mjs
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+      - run: npm run export-toolkit
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reusable-app-toolkit
+          path: build/downloads/
+          retention-days: 7

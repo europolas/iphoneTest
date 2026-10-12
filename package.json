@@ -1,0 +1,16 @@
+{
+  "name": "europolas-app-toolkit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs toolkit-tests/*.test.mjs",
+    "create-app": "node scripts/create-app.mjs",
+    "build-starter": "node scripts/build-starter.mjs",
+    "export-toolkit": "node scripts/export-toolkit.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "fake-indexeddb": "^6.2.5",
+    "mysql2": "^3.24.5"
+  }
+}

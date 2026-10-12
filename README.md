@@ -1,5 +1,10 @@
 # Nemokama bandomoji iPhone programėlė
 
+Veikiantis 8-osios versijos pavyzdys išsaugotas Git žyma `example-v1`.
+Pakartotinai naudojamo pagrindo, 39 modulių ir naujo projekto generatoriaus
+instrukcijos: [TOOLKIT.md](TOOLKIT.md). Šablono peržiūra publikuojama
+https://europolas.github.io/iphoneTest/starter/.
+
 SwiftUI skaitiklis: paspausk mygtuką, padidink skaičių arba pradėk iš naujo.
 Skaičius saugomas telefone. Paskyros naudoja atskirą mūsų serverio API. Mokamos Apple Developer narystės nereikia.
 Palaikoma iOS 17 ir naujesnė; programėlė skirta iPhone, įskaitant iPhone 17.
