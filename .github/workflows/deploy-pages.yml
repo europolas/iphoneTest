@@ -8,6 +8,7 @@ on:
       - 'scripts/prepare-pages.py'
       - 'tests/pwa-update.test.cjs'
       - 'tests/reminders.test.cjs'
+      - 'tests/auth.test.cjs'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 

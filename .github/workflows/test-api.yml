@@ -1,0 +1,42 @@
+name: Test user API
+
+on:
+  push:
+    branches: [main]
+    paths: ['server/**', '.github/workflows/test-api.yml']
+  pull_request:
+    paths: ['server/**', '.github/workflows/test-api.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  authentication:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      db:
+        image: mariadb:11.4
+        env:
+          # Disposable CI database, never used by the production server.
+          MARIADB_ROOT_PASSWORD: integration-only-password
+          MARIADB_ROOT_HOST: '%'
+        ports: ['3306:3306']
+        options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=5s --health-timeout=5s --health-retries=30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - run: npm ci --prefix server
+      - name: Check API security against MariaDB
+        env:
+          DB_TEST_HOST: 127.0.0.1
+          DB_ROOT_PASSWORD_FILE: ${{ runner.temp }}/iphone-test-db-root
+        run: |
+          umask 077
+          printf '%s' 'integration-only-password' > "$DB_ROOT_PASSWORD_FILE"
+          node --test server/test/*.test.mjs

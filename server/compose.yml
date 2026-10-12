@@ -1,0 +1,82 @@
+name: iphone-test
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root
+      MARIADB_DATABASE: iphone_test
+    secrets: [db_root]
+    volumes:
+      - iphone_database:/var/lib/mysql
+    networks: [database]
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    mem_limit: 512m
+    logging:
+      options: {max-size: 10m, max-file: "3"}
+  api:
+    build: .
+    user: "1001:1001"
+    restart: unless-stopped
+    depends_on:
+      db: {condition: service_healthy}
+    ports: ["127.0.0.1:8091:3000"]
+    env_file: ../.runtime/api.env
+    environment:
+      DB_HOST: db
+      DB_USER: iphone_app
+      DB_PASSWORD_FILE: /run/secrets/db_app
+      API_SECRET_FILE: /run/secrets/api_secret
+      MAIL_KEY_FILE: /run/secrets/mail_key
+      SMTP_PASSWORD_FILE: /run/secrets/smtp_password
+      TRUST_PROXY: "true"
+    secrets: [db_app, api_secret, mail_key, smtp_password, smtp_ca, dkim_private]
+    networks: [database, outbound, mail]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 512m
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options: {max-size: 10m, max-file: "3"}
+  smtp:
+    build: ./mail
+    restart: unless-stopped
+    secrets: [smtp_cert, smtp_key]
+    networks:
+      mail: {aliases: [smtp-mail]}
+      outbound: {}
+    volumes:
+      - iphone_mailqueue:/var/spool/postfix
+    mem_limit: 128m
+    logging:
+      options: {max-size: 10m, max-file: "3"}
+networks:
+  database: {internal: true}
+  outbound: {}
+  mail:
+    internal: true
+    ipam:
+      config: [{subnet: 172.30.89.0/24}]
+volumes:
+  iphone_database: {}
+  iphone_mailqueue: {}
+secrets:
+  db_root: {file: ../.runtime/db_root}
+  db_app: {file: ../.runtime/db_app}
+  api_secret: {file: ../.runtime/api_secret}
+  mail_key: {file: ../.runtime/mail_key}
+  smtp_password: {file: ../.runtime/smtp_password}
+  smtp_ca: {file: ../.runtime/mailtls/ca.crt}
+  smtp_cert: {file: ../.runtime/mailtls/server.crt}
+  smtp_key: {file: ../.runtime/mailtls/server.key}
+  dkim_private: {file: ../.runtime/dkim_private}

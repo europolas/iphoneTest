@@ -1,7 +1,7 @@
 # Nemokama bandomoji iPhone programėlė
 
 SwiftUI skaitiklis: paspausk mygtuką, padidink skaičių arba pradėk iš naujo.
-Skaičius saugomas telefone. Nereikia serverio ar mokamos Apple Developer narystės.
+Skaičius saugomas telefone. Paskyros naudoja atskirą mūsų serverio API. Mokamos Apple Developer narystės nereikia.
 Palaikoma iOS 17 ir naujesnė; programėlė skirta iPhone, įskaitant iPhone 17.
 
 ## Jei turi tik iPhone: internetinė versija
@@ -60,6 +60,18 @@ paspaudus pranešimą ir atidarius programėlę.
 
 Viešą programėlės nuorodą galima siųsti kitiems: kiekvienas ją prideda į savo
 pradžios ekraną ir atskirai suteikia pranešimų leidimą. App Store nereikia.
+
+## Paskyros ir serverio API
+
+Internetinėje programėlėje yra registracija, prisijungimas, atsijungimas, vardo
+bei slaptažodžio keitimas ir atkūrimo formos. API veikia
+`https://perimove.com/iphone-api/`, duomenys saugomi mūsų serverio MariaDB.
+Privatūs prisijungimo duomenys į Git nekeliami. Administratoriaus paskyrai
+yra vartotojų sąrašas ir blokavimas. Slaptažodžio atkūrimo siuntimas bus įjungtas
+sutvarkius domeno pašto DNS įrašus ir patikrinus pristatymą.
+
+Diegimas, saugumo priemonės ir serverio testai: [server/README.md](server/README.md).
+Paskyrų funkcijos įgyvendintos PWA; SwiftUI skaitiklio projektas jų neturi.
 
 ## 1. Įkelk projektą į GitHub
 

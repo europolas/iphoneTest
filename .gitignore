@@ -4,3 +4,5 @@ package/
 *.xcodeproj/
 .DS_Store
 iPhone-Demo-project.zip
+.runtime/
+server/node_modules/

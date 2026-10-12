@@ -1,0 +1,12 @@
+services:
+  migrate:
+    build: .
+    user: "1001:1001"
+    command: [node, scripts/migrate.mjs]
+    secrets: [db_root, db_app]
+    networks: [database]
+    depends_on:
+      db: {condition: service_healthy}
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]

@@ -1,0 +1,17 @@
+[
+  {
+    "type": "TXT",
+    "name": "@",
+    "value": "v=spf1 a -all"
+  },
+  {
+    "type": "TXT",
+    "name": "iphone._domainkey",
+    "value": "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyLbU72oNUJ8BH8eYI8mqgB+0FdEZNNLLYS+u/LTVkDpO281h3i4pWS/98nYK4mpeAK++UpF2WeTna4VOIzrGL+8lCbLo8bg9VN3HfuPWQ9Gm+hrc2ibViCpOv8C+CnPF1Rug09hHTLKCvcLuZbM+L6/skWp0S+3rgZRvk6QblLeeM36SOwnrY6P+JynL9n2YXnV6vjqaDQlyQKPGm32B9kGmNqpz9SFPCXfNnvOAjXnPWfLnB04LX7U+QjbZePFxjAD8Z+LRl/O7rc0mvzCdi8bvjYuH7eXp0UoddbpX9rzfEKyKt1b7vxqv2Q3o0p+wwUgnIYdb2tGDhK7uQSlrhwIDAQAB"
+  },
+  {
+    "type": "TXT",
+    "name": "_dmarc",
+    "value": "v=DMARC1; p=none; adkim=r; aspf=r"
+  }
+]

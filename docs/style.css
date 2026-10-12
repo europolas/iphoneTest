@@ -1,7 +1,7 @@
 :root { color-scheme: dark; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #10182b; color: #f4f6fc; }
 * { box-sizing: border-box; }
 body { margin: 0; min-height: 100svh; background: radial-gradient(ellipse at 80% 0%, #54315e 0%, transparent 55%), #10182b; }
-main { max-width: 520px; margin: auto; padding: max(40px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom)); }
+main { max-width: 520px; margin: auto; padding: calc(env(safe-area-inset-top) + 36px) 24px calc(env(safe-area-inset-bottom) + 24px); }
 .badge { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #ffd3ad; margin-bottom: 22px; }
 h1 { font-size: clamp(30px, 8vw, 42px); letter-spacing: -1.5px; line-height: 1.12; margin: 0 0 16px; }
 .intro { color: #b4bfd3; line-height: 1.6; margin: 0 0 32px; }
@@ -28,3 +28,21 @@ footer { color: #b4bfd3; font-size: 11px; margin-top: 32px; }
 .received-reminder { text-align: center; margin-bottom: 28px; padding: 24px; border-radius: 24px; background: #54315e; }
 .received-reminder[hidden] { display: none; }
 .received-reminder img { margin-bottom: 16px; }
+[hidden] { display: none !important; }
+.account-card { padding: 24px; border-radius: 24px; border: 1px solid #ffffff20; margin-bottom: 28px; background: #ffffff08; }
+.account-card h2 { margin: 0 0 16px; font-size: 22px; }
+#auth-status { color: #b4bfd3; line-height: 1.5; font-size: 14px; overflow-wrap: anywhere; }
+#auth-status[data-error="true"] { color: #ffc4c4; }
+.auth-tabs { display: flex; gap: 8px; margin: 20px 0; }
+.auth-tabs button { border-radius: 12px; background: #ffffff10; color: #f4f6fc; padding: 8px 14px; flex: 1; }
+.auth-tabs button[aria-pressed="true"] { background: #ffd3ad; color: #382013; }
+.account-card form { display: grid; gap: 16px; }
+.account-card label { display: grid; gap: 8px; font-size: 14px; color: #c9d2e3; }
+.account-card input { width: 100%; min-width: 0; min-height: 48px; font: inherit; font-size: 16px; color: #f4f6fc; background: #10182b; border: 1px solid #ffffff30; border-radius: 12px; padding: 12px; }
+.text-button { background: none; color: #ffd3ad; padding: 10px; border-radius: 12px; }
+.form-help { font-size: 12px; line-height: 1.5; color: #b4bfd3; margin: 0; }
+.password-details { margin-top: 24px; }
+.password-details form { margin-top: 20px; }
+#profile-email, #admin-users { overflow-wrap: anywhere; }
+#admin-users { padding-left: 18px; line-height: 1.5; }
+#admin-users li { margin: 12px 0; }
