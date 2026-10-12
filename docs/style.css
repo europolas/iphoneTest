@@ -18,3 +18,13 @@ button:disabled { opacity: .4; cursor: default; }
 details { border-top: 1px solid #ffffff20; padding-top: 20px; font-size: 14px; line-height: 1.6; color: #b4bfd3; }
 summary { cursor: pointer; color: #f4f6fc; }
 footer { color: #b4bfd3; font-size: 11px; margin-top: 32px; }
+.reminder-card { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding: 22px; margin-bottom: 28px; border: 1px solid #ffffff20; border-radius: 24px; background: #ffffff08; }
+.reminder-card img, .received-reminder img { border-radius: 14px; }
+.reminder-card h2, .received-reminder h2 { margin: 0 0 12px; font-size: 18px; }
+.check-label { display: flex; align-items: center; gap: 10px; font-size: 15px; min-height: 44px; cursor: pointer; }
+.check-label input { width: 24px; height: 24px; flex-shrink: 0; accent-color: #ffd3ad; }
+#reminder-status, .reminder-info { grid-column: 1 / -1; margin: 0; line-height: 1.5; color: #b4bfd3; font-size: 14px; }
+.reminder-info { font-size: 12px; }
+.received-reminder { text-align: center; margin-bottom: 28px; padding: 24px; border-radius: 24px; background: #54315e; }
+.received-reminder[hidden] { display: none; }
+.received-reminder img { margin-bottom: 16px; }

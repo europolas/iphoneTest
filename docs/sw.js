@@ -2,7 +2,7 @@
 
 // Publikavimo metu pakeičiama pagal visų programėlės failų turinį.
 const cacheName = 'iphoneTest-__BUILD_VERSION__';
-const assets = ['./', './index.html', './style.css', './app.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const assets = ['./', './index.html', './style.css', './app.js', './reminders.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(cacheName)
@@ -33,5 +33,32 @@ self.addEventListener('fetch', event => {
       }
       throw error;
     }
+  }));
+});
+
+self.addEventListener('push', event => {
+  let data = {};
+  try { data = event.data ? event.data.json() : {}; } catch { /* Rodomas bendras pranešimas. */ }
+  const message = data.message || {};
+  const home = self.registration.scope;
+  event.waitUntil(self.registration.showNotification(message.title || 'Mano Demo', {
+    body: message.message || 'Gavai naują pranešimą.',
+    icon: new URL('./icon-192.png', home).href,
+    image: new URL('./icon-512.png', home).href,
+    tag: message.id || 'demo-reminder',
+    data: { url: new URL('./?reminder=1', home).href }
+  }));
+});
+
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  const target = new URL('./?reminder=1', self.registration.scope).href;
+  event.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(async windows => {
+    const existing = windows.find(client => client.url.startsWith(self.registration.scope));
+    if (existing) {
+      await existing.navigate(target);
+      return existing.focus();
+    }
+    return self.clients.openWindow(target);
   }));
 });

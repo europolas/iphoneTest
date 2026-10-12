@@ -36,6 +36,31 @@ Uždaryta programėlė iOS fone nuolat netikrina atnaujinimų; patikrins ją ati
 Šis mechanizmas taikomas internetinei versijai. Tikros iOS `.ipa` programėlės
 pasirašymas ir diegimas telefonu lieka atskiras procesas.
 
+### Vienkartinis pranešimas po minutės
+
+Atidaryk programėlę per pradžios ekrano ikoną, pažymėk „Vienas pranešimas po
+1 min.“ ir leisk pranešimus. Tik gavusi sėkmingą siuntimo paslaugos atsakymą
+programėlė parodo, kad priminimas suplanuotas. Tuomet ją gali uždaryti.
+Vienas bandymas suplanuoja vieną pranešimą. Atžymėjus langelį nutraukiama
+to įrenginio prenumerata laukiantiems priminimams; jau pristatyto pranešimo
+atšaukti negalima. Po minutės langelį galima pažymėti dar kartą naujam bandymui.
+
+Naudojama ntfy.sh nemokama viešoji Web Push ir uždelsto siuntimo paslauga.
+Kiekvienam bandymui sukuriamas atskiras atsitiktinis kanalas. Paslaugai perduodamas
+įrenginio push prenumeratos adresas, šifravimo viešieji duomenys ir bandomasis
+pranešimas. Neperduodami Apple prisijungimo duomenys ar skaitiklio reikšmė.
+Kanalai nėra paskyra apsaugoti: šis variantas skirtas viešam bandomajam tekstui,
+o ne konfidencialiems pranešimams. Paslaugos ribos ir tinklas gali lemti vėlavimą;
+viena minutė nėra tikslaus pristatymo garantija.
+
+Pranešimo tekste naudojama „Praėjo viena minutė! Tavo bandomasis pranešimas
+atkeliavo.“ Pridedama programėlės ikona ir paveikslėlis. iOS Web Push nerodo
+atskiro didelio paveikslėlio visose versijose; jį taip pat galima pamatyti
+paspaudus pranešimą ir atidarius programėlę.
+
+Viešą programėlės nuorodą galima siųsti kitiems: kiekvienas ją prideda į savo
+pradžios ekraną ir atskirai suteikia pranešimų leidimą. App Store nereikia.
+
 ## 1. Įkelk projektą į GitHub
 
 Sukurk viešą repozitoriją. Standartiniai GitHub Actions vykdytojai viešose

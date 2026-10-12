@@ -80,7 +80,7 @@ test('first installation does not reload; later updates do', async () => {
 
 function worker(failDownload = false) {
   const events = {};
-  const state = { skipped: 0, claimed: 0, deleted: [], opened: [], requests: [] };
+  const state = { skipped: 0, claimed: 0, deleted: [], opened: [], requests: [], notifications: [] };
   const cache = {
     addAll: async requests => {
       state.requests = requests;
@@ -94,7 +94,10 @@ function worker(failDownload = false) {
   vm.runInNewContext(read('sw.js').replace('__BUILD_VERSION__', 'new-version'), {
     URL, Request,
     self: {
-      registration: { scope: 'https://example.com/iphoneTest/' },
+      registration: {
+        scope: 'https://example.com/iphoneTest/',
+        showNotification: async (title, options) => { state.notifications.push({ title, options }); }
+      },
       location: { origin: 'https://example.com' },
       addEventListener: (type, fn) => { events[type] = fn; },
       skipWaiting: async () => { state.skipped++; },
@@ -119,7 +122,7 @@ test('download all fresh files before immediate activation, then remove old cach
   const w = worker();
   await w.lifecycle('install');
   assert.equal(w.state.skipped, 1);
-  assert.equal(w.state.requests.length, 7);
+  assert.equal(w.state.requests.length, 8);
   assert.ok(w.state.requests.every(request => request.cache === 'reload'));
   await w.lifecycle('activate');
   assert.deepEqual(w.state.deleted, ['iphoneTest-v1']);
@@ -143,4 +146,20 @@ test('offline navigation uses the page from the current version', async () => {
   });
   assert.equal(await response, 'cached-page');
   assert.deepEqual(w.state.opened, ['iphoneTest-new-version']);
+});
+
+test('push displays the server text with icon and image without an open page', async () => {
+  const w = worker();
+  let pending;
+  w.events.push({
+    data: { json: () => ({ message: { title: 'Mano Demo', message: 'Praėjo viena minutė!', id: 'one-reminder' } }) },
+    waitUntil: promise => { pending = promise; }
+  });
+  await pending;
+  assert.equal(w.state.notifications.length, 1);
+  const notification = w.state.notifications[0];
+  assert.equal(notification.options.body, 'Praėjo viena minutė!');
+  assert.ok(notification.options.image.endsWith('icon-512.png'));
+  assert.ok(notification.options.icon.endsWith('icon-192.png'));
+  assert.ok(notification.options.data.url.endsWith('?reminder=1'));
 });

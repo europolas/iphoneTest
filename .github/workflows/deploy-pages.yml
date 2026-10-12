@@ -7,6 +7,7 @@ on:
       - 'docs/**'
       - 'scripts/prepare-pages.py'
       - 'tests/pwa-update.test.cjs'
+      - 'tests/reminders.test.cjs'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
@@ -29,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Test automatic updates
-        run: node --test tests/pwa-update.test.cjs
+        run: node --test tests/*.test.cjs
       - name: Prepare versioned web app
         run: python3 scripts/prepare-pages.py
       - name: Configure Pages

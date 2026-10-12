@@ -12,10 +12,11 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="style.css">
   <script src="app.js" defer></script>
+  <script src="reminders.js" defer></script>
 </head>
 <body>
   <main>
-    <div class="badge">VERSIJA 2 · NAUJAS ĮVAIZDIS</div>
+    <div class="badge">VERSIJA 3 · PRIMINIMAI</div>
     <h1>Labas dar kartą!<br>Jau atsinaujinau.</h1>
     <p class="intro">Nauja spalva, tas pats tavo skaitiklis. Jei matai šį tekstą, naujoji versija jau tavo telefone.</p>
     <section class="card" aria-label="Skaitiklis">
@@ -25,12 +26,29 @@
       <button id="reset" class="reset" type="button" disabled>Pradėti iš naujo</button>
     </section>
     <p id="storage-note" class="note">Skaičius išlieka ir uždarius programėlę.</p>
+    <section class="reminder-card" aria-labelledby="reminder-title">
+      <img src="icon-512.png" alt="Priminimo paveikslėlis: pliusas" width="56" height="56">
+      <div>
+        <h2 id="reminder-title">Išbandyk pranešimą</h2>
+        <label class="check-label">
+          <input id="reminder-toggle" type="checkbox" aria-describedby="reminder-status">
+          <span>Vienas pranešimas po 1 min.</span>
+        </label>
+      </div>
+      <p id="reminder-status" role="status">Pažymėk, leisk pranešimus ir gali uždaryti programėlę.</p>
+      <p class="reminder-info">Siuntimas per „ntfy“. „iPhone“ pranešime rodoma programėlės ikona; paveikslėlį matysi ir atidaręs pranešimą.</p>
+    </section>
+    <section id="received-reminder" class="received-reminder" hidden>
+      <img src="icon-512.png" alt="Priminimo paveikslėlis: pliusas" width="112" height="112">
+      <h2>Praėjo viena minutė!</h2>
+      <p>Tavo bandomasis pranešimas atkeliavo.</p>
+    </section>
     <details>
       <summary>Įsidėk į pradžios ekraną</summary>
       <p>Atidaryk šį puslapį „Safari“. Spausk bendrinimo mygtuką, pasirink „Pridėti prie pradžios ekrano“ ir patvirtink „Pridėti“.</p>
       <p>Po pirmojo atidarymo programėlė gali veikti ir be interneto.</p>
     </details>
-    <footer>Mano Demo · Versija 2</footer>
+    <footer>Mano Demo · Versija 3</footer>
   </main>
 </body>
 </html>
