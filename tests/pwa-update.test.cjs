@@ -122,7 +122,7 @@ test('download all fresh files before immediate activation, then remove old cach
   const w = worker();
   await w.lifecycle('install');
   assert.equal(w.state.skipped, 1);
-  assert.equal(w.state.requests.length, 10);
+  assert.equal(w.state.requests.length, 13);
   assert.ok(w.state.requests.every(request => request.cache === 'reload'));
   await w.lifecycle('activate');
   assert.deepEqual(w.state.deleted, ['iphoneTest-v1']);
@@ -141,7 +141,7 @@ test('offline navigation uses the page from the current version', async () => {
   const w = worker();
   let response;
   w.events.fetch({
-    request: { method: 'GET', url: 'https://example.com/iphoneTest/?home=1', mode: 'navigate' },
+    request: { method: 'GET', url: 'https://example.com/iphoneTest/?home=1', mode: 'navigate', headers: new Headers() },
     respondWith: promise => { response = promise; }
   });
   assert.equal(await response, 'cached-page');
@@ -162,4 +162,13 @@ test('push displays the server text with icon and image without an open page', a
   assert.ok(notification.options.image.endsWith('icon-512.png'));
   assert.ok(notification.options.icon.endsWith('icon-192.png'));
   assert.ok(notification.options.data.url.endsWith('?reminder=1'));
+});
+
+test('video and byte-range requests bypass the app-shell cache for native seeking', () => {
+  const w = worker(); let intercepted = false;
+  for (const request of [
+    { method: 'GET', url: 'https://example.com/iphoneTest/assets/demo.mp4', destination: 'video', headers: new Headers() },
+    { method: 'GET', url: 'https://example.com/iphoneTest/assets/demo.mp4', headers: new Headers({ Range: 'bytes=100-' }) }
+  ]) w.events.fetch({ request, respondWith: () => { intercepted = true; } });
+  assert.equal(intercepted, false);
 });

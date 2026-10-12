@@ -2,9 +2,9 @@ name: Test reusable modules
 on:
   push:
     branches: [main]
-    paths: ['packages/**', 'starter/**', 'scripts/**', 'toolkit-tests/**', 'toolkit-integration/**', 'browser-tests/**', 'package*.json', 'playwright.config.mjs', '.github/workflows/test-toolkit.yml']
+    paths: ['docs/**', 'packages/**', 'starter/**', 'scripts/**', 'toolkit-tests/**', 'toolkit-integration/**', 'browser-tests/**', 'package*.json', 'playwright.config.mjs', '.github/workflows/test-toolkit.yml']
   pull_request:
-    paths: ['packages/**', 'starter/**', 'scripts/**', 'toolkit-tests/**', 'toolkit-integration/**', 'browser-tests/**', 'package*.json', 'playwright.config.mjs', '.github/workflows/test-toolkit.yml']
+    paths: ['docs/**', 'packages/**', 'starter/**', 'scripts/**', 'toolkit-tests/**', 'toolkit-integration/**', 'browser-tests/**', 'package*.json', 'playwright.config.mjs', '.github/workflows/test-toolkit.yml']
   workflow_dispatch:
 permissions:
   contents: read

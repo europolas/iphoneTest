@@ -1,4 +1,4 @@
-# @europolas/app-modules 1.1.1
+# @europolas/app-modules 1.1.2
 
 39 funkcinių modulių failai: 35 naršyklės moduliai, service worker ir 3 serverio moduliai.
 Be frontend framework ir be naršyklės runtime priklausomybių. Node serverio
@@ -80,7 +80,7 @@ Kai `build/app-modules` paskelbiamas atskiros Git repozitorijos šaknyje, galima
 įdiegti jį per Git URL, pririšus prie žymos arba konkretaus commit:
 
 ```bash
-npm install git+ssh://git@github.com/europolas/app-modules.git#v1.1.1
+npm install git+ssh://git@github.com/europolas/app-modules.git#v1.1.2
 ```
 
 Tai būsimos atskiros repozitorijos pavyzdys; dabartinės bibliotekos npm registre

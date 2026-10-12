@@ -59,3 +59,10 @@ footer { color: #b4bfd3; font-size: 11px; margin-top: 32px; }
 #profile-email, #admin-users { overflow-wrap: anywhere; }
 #admin-users { padding-left: 18px; line-height: 1.5; }
 #admin-users li { margin: 12px 0; }
+
+/* Keep the video within the existing full-height app scroller and blur shell. */
+.video-card { padding: 20px; margin-bottom: 28px; border: 1px solid #ffffff20; border-radius: 24px; background: #ffffff08; }
+.video-card h2 { margin: 0 0 12px; font-size: 22px; }
+.video-card p { color: #b4bfd3; font-size: 14px; line-height: 1.5; }
+.video-card video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; background: #000; object-fit: contain; touch-action: auto; }
+#video-status { white-space: pre-line; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; margin-bottom: 0; }

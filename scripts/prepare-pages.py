@@ -14,10 +14,19 @@ for path in sorted(source.rglob("*")):
         digest.update(path.read_bytes())
         digest.update(b"\0")
 
+# The demo shares canonical English/Lithuanian dictionaries. Hash and publish them
+# with its video script; do not copy backend code or change the separate starter.
+locales = source.parent / "packages/app-modules/src/translations"
+for language in ("en", "lt"):
+    digest.update(language.encode())
+    digest.update((locales / f"{language}.js").read_bytes())
 version = digest.hexdigest()
 if destination.exists():
     shutil.rmtree(destination)
 shutil.copytree(source, destination)
+(destination / "video-locales").mkdir()
+for language in ("en", "lt"):
+    shutil.copyfile(locales / f"{language}.js", destination / "video-locales" / f"{language}.js")
 worker = destination / "sw.js"
 text = worker.read_text()
 if text.count("__BUILD_VERSION__") != 1:

@@ -2,7 +2,7 @@
 
 // Publikavimo metu pakeičiama pagal visų programėlės failų turinį.
 const cacheName = 'iphoneTest-__BUILD_VERSION__';
-const assets = ['./', './index.html', './style.css', './viewport.js', './app.js', './reminders.js', './auth.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const assets = ['./', './index.html', './style.css', './viewport.js', './app.js', './reminders.js', './auth.js', './video.js', './video-locales/en.js', './video-locales/lt.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(cacheName)
@@ -20,6 +20,8 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  // Native video needs byte-range responses; bypass app-shell caching for media.
+  if (event.request.destination === 'video' || event.request.headers.has('range')) return;
   if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return;
   event.respondWith(caches.open(cacheName).then(async cache => {
     const cached = await cache.match(event.request, { ignoreSearch: true });
