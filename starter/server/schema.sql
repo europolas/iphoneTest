@@ -1,5 +1,3 @@
--- Initial schema: immutable after applying migration 001_accounts. Add a new migration ID for changes.
--- Private session/reset/mail rows belong to a user and are removed by cascading account deletion.
 CREATE TABLE IF NOT EXISTS users (
   id CHAR(36) CHARACTER SET ascii COLLATE ascii_bin PRIMARY KEY,
   email VARCHAR(254) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL UNIQUE,

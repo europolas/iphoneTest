@@ -29,3 +29,7 @@ Recovery remains unavailable (503) until SMTP is configured and actual delivery
 verified. Runtime messages and email default to English. No recipient-language DB
 column, email verification, MFA, social login or complete production push sender is
 implemented. Upload/CRUD client helpers require project-specific API endpoints.
+
+Keep the initial schema.sql byte-for-byte unchanged, including comments: its full
+contents participate in the stored migration checksum. Put additional explanations
+in this guide, not inside already versioned migration SQL.
