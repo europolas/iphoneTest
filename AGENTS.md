@@ -52,3 +52,12 @@ iphoneTest checkout remains the running demo and a preserved toolkit snapshot.
 Implement future shared changes in `/home/deploy/Documents/Codex/pwa-toolkit`
 and keep demo-specific changes here. Do not automatically synchronize or deploy
 production API/DB changes between these projects.
+
+## Standing reuse instruction (2026-10-13)
+
+Before creating any new app, inspect the current `europolas/pwa-toolkit` starter
+and app-modules catalog/source for existing code to reuse. If a new app needs a
+module not yet in the library, add a reusable example with usage documentation
+and appropriate validation to the canonical app-modules library for future use.
+The authoritative journal record is `JOURNAL.jsonl` in pwa-toolkit. Carry this rule
+into each new application's AGENTS.md; do not treat this demo snapshot as current.
