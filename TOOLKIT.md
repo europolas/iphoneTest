@@ -46,8 +46,9 @@ Paruošiami `build/app-starter/` ir `build/app-modules/`, taip pat ZIP ir npm TG
 `app-modules` gali būti npm Git dependency, pririšta prie konkrečios versijos.
 Privačių failų, tikros DB ir testinių programėlių šie archyvai neturi.
 
-Atskiros GitHub repozitorijos dar nesukurtos: dabartinis deploy key suteikia
-rašymą tik `europolas/iphoneTest`. Eksportai paruošti be papildomos GitHub prieigos.
+Bendras pagrindas perkeltas į `europolas/pwa-toolkit`: šablonas ir moduliai
+prižiūrimi vienoje repozitorijoje. Šiame iphoneTest repo likusi kopija yra
+demonstracinis istorinis pavyzdys; naujiems projektams naudok pwa-toolkit.
 
 ## Patikrinimas ir publikavimas
 

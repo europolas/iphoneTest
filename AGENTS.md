@@ -44,3 +44,11 @@ package version and lockfile aligned; never move existing release tags.
 
 The generator does not deploy an API or configure email delivery. Do not report
 those as working until their actual server configuration and delivery are checked.
+
+## Canonical toolkit repository
+
+The shared starter/modules/generator now live in `europolas/pwa-toolkit`. This
+iphoneTest checkout remains the running demo and a preserved toolkit snapshot.
+Implement future shared changes in `/home/deploy/Documents/Codex/pwa-toolkit`
+and keep demo-specific changes here. Do not automatically synchronize or deploy
+production API/DB changes between these projects.

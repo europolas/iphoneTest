@@ -1,5 +1,10 @@
 # Nemokama bandomoji iPhone programėlė
 
+**Bendras šablonas, moduliai ir generatorius dabar prižiūrimi
+[europolas/pwa-toolkit](https://github.com/europolas/pwa-toolkit).**
+Ši repozitorija lieka veikiančia demonstracine programėle; čia esantis toolkit
+kodas yra išsaugotas ankstesnis pavyzdys. Naujas programėles kurk iš pwa-toolkit.
+
 Veikiantis 8-osios versijos pavyzdys išsaugotas Git žyma `example-v1`.
 Pakartotinai naudojamo pagrindo, 39 modulių ir naujo projekto generatoriaus
 instrukcijos: [TOOLKIT.md](TOOLKIT.md). Šablono peržiūra publikuojama
